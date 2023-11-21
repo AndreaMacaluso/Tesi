@@ -19,7 +19,7 @@ namespace OpenAI
         private OpenAIApi openai = new OpenAIApi();
 
         private string userInput;
-        private string instruction = "Act as a family member who doesnt know where the cat is, but wants to know about it.\nQ: "; //Q: is for question
+        private string instruction = "Act as a family member who doesnt know where the cat is, but wants to know about it. the player will ask you some question "; 
 
         private void Start(){
             send.onClick.AddListener(SendReply);
@@ -29,6 +29,7 @@ namespace OpenAI
          private void Update(){
 
             if(player.IsTalking()){
+                 setInstructionBasedOnNPC(player);
                  Show();
              }else{
                 Hide();
@@ -63,6 +64,30 @@ namespace OpenAI
             send.enabled = true;
             inputField.enabled = true;
         }
+
+        private void setInstructionBasedOnNPC( Player player){
+            var interactableObject = player.GetInteractableObject();
+
+            string name = interactableObject.GetNpcName();
+            instruction = "Act as a family member who doesnt know where the cat is, but wants to know about it.";
+
+            //Q: is for question
+
+            switch (name) {
+            case "Mom":
+                instruction += "Act Like you are the Mother of the player and ask him to look in the bathrom for the cat. \nQ:";
+                break;
+            case "Dad":
+                instruction += "Act Like you are the Dad of the player, you are shaving your beard and have no idea where the cat is keep asking what the Timmy is doing at the Arcade machine. \nQ:";
+                break;
+            case "Little brother" :
+                instruction += "Act Like you are a little child who wants to play at the Arcade machine but its mad becouse the cat broke it \nQ:";    
+                break;
+            default :
+                instruction += "Ask if the cat has been found every 3 questions \nQ:";
+                break;
+            }
+        }  
 
         public void Show(){
 
