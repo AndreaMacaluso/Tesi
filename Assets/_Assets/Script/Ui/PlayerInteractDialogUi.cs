@@ -75,17 +75,19 @@ namespace OpenAI
 
             switch (name) {
             case "Mom":
-                instruction += "Act Like you are the Mother of the player and ask him to look in the bathrom for the cat. \nQ:";
-                break;
-            case "Dad":
-                instruction += "Act Like you are the Dad of the player, you are shaving your beard and have no idea where the cat is keep asking what the Timmy is doing at the Arcade machine. \nQ:";
-                break;
-            case "Little brother" :
-                instruction += "Act Like you are a little child who wants to play at the Arcade machine but its mad becouse the cat broke it \nQ:";    
-                break;
-            default :
-                instruction += "Ask if the cat has been found every 3 questions \nQ:";
-                break;
+             switch (name) {
+                    case "Mom":
+                    instruction += "Act Like you are the Mother of the player and ask him to look in the bathroom for the cat. \nQ:";
+                    break;
+                    case "Dad":
+                    instruction += "Act Like you are the Dad of the player, you are shaving your beard and have no idea where the cat is keep asking what Timmy is doing at the Arcade machine. \nQ:";
+                    break;
+                    case "Little brother" :
+                    instruction += "Act Like you are a little child who wants to play at the Arcade machine but it's mad because the cat broke it \nQ:";    
+                    break;
+                    default :
+                    instruction += "Ask if the cat has been found every 3 questions \nQ:";
+                    break;
             }
         }  
 
