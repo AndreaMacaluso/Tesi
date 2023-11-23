@@ -73,8 +73,6 @@ namespace OpenAI
 
             //Q: is for question
 
-            switch (name) {
-            case "Mom":
              switch (name) {
                     case "Mom":
                     instruction += "Act Like you are the Mother of the player and ask him to look in the bathroom for the cat. \nQ:";
