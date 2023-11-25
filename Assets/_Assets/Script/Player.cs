@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
    private bool isWalking;
    private bool isTalking;
    private Vector3 lastInteractDir;
-   private string openAiKey;
-
    
     private void Awake() {
         Instance = this;
@@ -158,14 +156,6 @@ public class Player : MonoBehaviour
     }
     public void isNotTalking(){
         isTalking = false;
-    }
-
-    public void SetOpenAiKey(string userInput){
-        openAiKey = userInput;
-    }
-    public string GetOpenAiKey(){
-        return openAiKey; 
-    }
-    
+    }   
 
 }

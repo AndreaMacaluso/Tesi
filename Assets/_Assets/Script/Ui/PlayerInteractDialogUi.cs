@@ -22,6 +22,13 @@ namespace OpenAI
         private string instruction = "Act as a family member who doesnt know where the cat is, but wants to know about it. the player will ask you some question "; 
 
         private void Start(){
+           
+            string text = GameSettings.Instance.GetOpenAiKey();
+           
+            if((text != null)&&(text != "")){
+                openai = new OpenAIApi(text);
+            }
+           
             send.onClick.AddListener(SendReply);
             exit.onClick.AddListener(CloseChat);
         }

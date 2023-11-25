@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenuUi : MonoBehaviour {
 
 
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
-    //[SerializeField] private TMP_InputField inputField;// inputField;
-    //[SerializeField] private Button send;    
+    [SerializeField] private TMP_InputField inputField;// inputField;
+    [SerializeField] private Button confirmButton;    
    // [SerializeField] private Player player;
 
 
@@ -22,6 +23,10 @@ public class MainMenuUi : MonoBehaviour {
             player.SetOpenAiKey(userInput);
         }); */
    
+        confirmButton.onClick.AddListener(() => {
+            GameSettings.Instance.SetOpenAiKey(inputField.text);
+        });
+
         playButton.onClick.AddListener(() => {
             Loader.Load(Loader.Scene.GameScene);
         });
