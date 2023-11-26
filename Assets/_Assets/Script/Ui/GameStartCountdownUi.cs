@@ -38,14 +38,12 @@ public class GameStartCountdownUi : MonoBehaviour {
     }
  /**/
     private void Update() {
-        //@toDo rivedere per renderla abilitata, al momento non funziona
+        
         int countdownNumber = Mathf.CeilToInt(GameManager.Instance.GetGamePlayingTime());
         countdownText.text = countdownNumber.ToString();
 
         if (previousCountdownNumber != countdownNumber) {
             previousCountdownNumber = countdownNumber;
-           // animator.SetTrigger(NUMBER_POPUP); //@toDo da settare
-          //  SoundManager.Instance.PlayCountdownSound();
         }
     }
 
