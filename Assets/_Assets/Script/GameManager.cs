@@ -16,11 +16,12 @@ public class GameManager : MonoBehaviour
         WaitingToStart,
        // CountdownToStart,
         GamePlaying,
+        GameEnding,
         GameOver,
     }
 
     private State state;
-    private float gamePlayingTime = 300f;
+    private float gamePlayingTime = 10f;
 
 
     private bool isGamePaused = false;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         GameInput.Instance.OnPauseAction += GameInput_OnPauseAction;
+        Player.Instance.OnHasFoundCat += Player_OnHasFoundCat;
     }
 
     private void GameInput_OnPauseAction (object sender, EventArgs e){
@@ -40,14 +42,39 @@ public class GameManager : MonoBehaviour
        TogglePauseGame();
     }
 
+
+    private void Player_OnHasFoundCat(object sender, System.EventArgs e) {
+
+        if((state != State.GameEnding)&&(gamePlayingTime > 10f)){
+            gamePlayingTime = 10f;
+            state = State.GameEnding;
+            OnStateChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+
     
     private void Update() {
+        Debug.Log(gamePlayingTime);
+        Debug.Log(state);
         switch (state) {
             case State.WaitingToStart:
-            state = State.GamePlaying;//da eliminare
+                gamePlayingTime -= Time.deltaTime;
+                if (gamePlayingTime < 0f) {
+                        gamePlayingTime = 300f;
+                        state = State.GamePlaying;
+                        OnStateChanged?.Invoke(this, EventArgs.Empty);
+                    }
                 break;
             case State.GamePlaying:
-                 gamePlayingTime -= Time.deltaTime;
+                gamePlayingTime -= Time.deltaTime;
+                if (gamePlayingTime < 0f) {
+                    state = State.GameOver;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                break;
+            case State.GameEnding:
+                gamePlayingTime -= Time.deltaTime;
                 if (gamePlayingTime < 0f) {
                     state = State.GameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
@@ -60,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     
     public bool IsGamePlaying() {
-        return state == State.GamePlaying;
+        return ((state == State.GamePlaying)||(state == State.GameEnding));
     }
     
     public float GetGamePlayingTime() {

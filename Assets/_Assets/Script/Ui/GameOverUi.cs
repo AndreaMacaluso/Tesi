@@ -8,19 +8,22 @@ public class GameOverUi : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI catFound;
 
+    string catsNumeber = "0";
 
     private void Start() {
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
-
+        Player.Instance.OnHasFoundCat += Player_OnHasFoundCat;
         Hide();
+    }
+
+    private void Player_OnHasFoundCat(object sender, System.EventArgs e) {
+          catsNumeber = "1";
     }
 
     private void GameManager_OnStateChanged(object sender, System.EventArgs e) {
         if (GameManager.Instance.IsGameOver()) {
+            catFound.text = catsNumeber;
             Show();
-
-            catFound.text = "0";//@toDo implementare cat found
-
         } else {
             Hide();
         }
