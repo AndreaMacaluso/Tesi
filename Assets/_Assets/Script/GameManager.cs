@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     }
 
     private State state;
-    private float gamePlayingTime = 10f;
+    private float gamePlayingTime = 2f;
 
 
     private bool isGamePaused = false;

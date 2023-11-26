@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
    
     private void Awake() {
         Instance = this;
-    }
+     }
 
     private void Update() {
         if (GameManager.Instance.IsGamePlaying()){
@@ -109,12 +109,18 @@ public class Player : MonoBehaviour
             Collider[] colliderArray = Physics.OverlapSphere(transform.position,interactRange);
             foreach(Collider collider in colliderArray){
                 if(collider.TryGetComponent(out NpcInteractable npcInteractable)){
-                    npcInteractable.InteractAction(transform);
+                    npcInteractable.InteractAction(transform);// += Pause_performed;
                     isTalking = true;
+                   
                 } 
             }
         }
     }
+
+    /* private void Pause_performed (UnityEngine.InputSystem.InputAction.CallbackContext obj){
+
+        OnPauseAction?.Invoke(this, EventArgs.Empty);
+    } */
    
     public NpcInteractable GetInteractableObject(){
        
